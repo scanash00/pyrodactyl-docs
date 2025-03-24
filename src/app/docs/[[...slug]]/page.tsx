@@ -6,8 +6,15 @@ import { Card, Cards } from 'fumadocs-ui/components/card';
 import defaultMdxComponents, { createRelativeLink } from 'fumadocs-ui/mdx';
 import { source } from '@/lib/source';
 
-export default async function Page({ params }: { params: { slug?: string[] } }) {
-  const page = source.getPage(params.slug);
+interface PageParams {
+  params: Promise<{
+    slug?: string[];
+  }>;
+}
+
+export default async function Page({ params }: PageParams) {
+  const { slug } = await params;
+  const page = await source.getPage(slug);
 
   if (!page) {
     notFound();
@@ -53,8 +60,9 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export function generateMetadata({ params }: { params: { slug?: string[] } }): Metadata {
-  const page = source.getPage(params.slug);
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+  const { slug } = await params;
+  const page = await source.getPage(slug);
 
   if (!page) return {};
 
