@@ -1,0 +1,79 @@
+---
+title: Pyrodactyl Documentation
+description: The Pterodactyl-based game server panel that's faster, smaller, safer, and more accessible
+---
+
+![Banner with Pyrodactyl Logo](https://camo.githubusercontent.com/6029bb2513ba810cc82a39cbb5f72589cd17a70bb10c434a4d64b079ffbd4327/68747470733a2f2f692e696d6775722e636f6d2f523130697667392e706e67)
+
+# Welcome to Pyrodactyl
+
+<Callout type="warn">
+Pyrodactyl is under development and pre-release. Some UI elements may appear broken, and there might be some bugs.
+</Callout>
+
+<Callout type="info">
+For Pyrodactyl-specific issues, please use Pyrodactyl GitHub Discussions or Pyrodactyl Discord instead of Pterodactyl or Pelican support channels.
+</Callout>
+
+Pyrodactyl is the Pterodactyl-based game server management panel that focuses on performance enhancements, a reimagined, accessible interface, and top-tier developer experience. Builds faster, compiles smaller: Pyrodactyl is the world's best Pterodactyl.
+
+![Dashboard Image](https://camo.githubusercontent.com/8a481d988dbc0114a0de65318e1688703cac404a0f1d652cbdd992829c3b312b/68747470733a2f2f692e696d6775722e636f6d2f597166674d59732e6a706567)
+
+## Changes from vanilla Pterodactyl
+
+- **Smaller bundle sizes**: Pyrodactyl is built using Vite, and significant re-architecting of the application means Pyrodactyl's initial download size is over 170 times smaller than leading Pterodactyl forks, and Pelican
+- **Faster build times**: Pyrodactyl completes builds in milliseconds with the power of Turbo. Cold builds with zero cache finish in under 7 seconds.
+- **Faster loading times**: Pyrodactyl's load times are, on average, over 16 times faster than other closed-source Pterodactyl forks and Pelican. Smarter code splitting and chunking means that pages you visit in the panel only load necessary resources on demand. Better caching means that everything is simply snappy.
+- **More secure**: Pyrodactyl's modern architecture means most severe and easily exploitable CVEs simply do not exist. We have also implemented SRI and integrity checks for production builds.
+- **More accessible**: Pyro believes that gaming should be easily available for everyone. Pyrodactyl builds with the latest Web accessibility guidelines in mind. Pyrodactyl is entirely keyboard-navigable, even context menus., and screen-readers are easily compatible.
+- **More approachable**: Pyrodactyl's friendly, approachable interface means that anyone can confidently run a game server with Pyro.
+
+![Dashboard Image](https://camo.githubusercontent.com/e3c78145a080fa55306a5e788b5e42672935abdcd2fd20bc3d1287cab605afc0/68747470733a2f2f692e696d6775722e636f6d2f6b48484f5736502e6a706567)
+
+<Cards>
+  <Card title="Installation Guide" href="/docs/installation">
+    Set up Pyrodactyl using Docker or native installation
+  </Card>
+  <Card title="Installation Guides" href="/docs/installation-guides">
+    Community guides for different platforms
+  </Card>
+  <Card title="Configuration" href="/docs/installation#panel-configuration">
+    Learn how to configure your Pyrodactyl instance
+  </Card>
+  <Card title="Wings Setup" href="/docs/installation#wings-installation">
+    Configure Wings as your game server backend
+  </Card>
+</Cards>
+
+## Quick Start
+
+For existing Pterodactyl Docker users, you can quickly switch to Pyrodactyl by updating your panel image:
+
+```diff
+-image: ghcr.io/pterodactyl/panel:latest
++image: ghcr.io/pyrohost/pyrodactyl:main
+```
+
+<Callout type="note">
+Windows is currently only supported for development purposes.
+</Callout>
+
+## Local Development
+
+See our development pages on how to get started:
+
+- [Local Dev on Windows (Vagrant)](/docs/local-development#local-dev-with-vagrant-on-windows)
+- [Local Dev on Linux (Vagrant)](/docs/local-development#local-dev-with-vagrant-on-linux)
+- [Local Dev on Linux (Nix)](/docs/local-development#local-dev-with-nix)
+
+<Callout>
+Nix is recommended if you can't get Vagrant working
+</Callout>
+
+## License
+
+Pterodactyl® Copyright 2015 - 2022 Dane Everitt and contributors.
+
+Pyrodactyl™ Copyright 2025 Pyro Inc. and contributors.
+
+AGPL-3.0-or-later
