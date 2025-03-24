@@ -11,12 +11,17 @@ export const PyroLink = ({
 	external?: boolean;
 	className?: string;
 	children: React.ReactNode;
-}) => {
-	const { ...rest } = props;
-
-	return (
-		<Link data-pyro-ui="link" target={external ? "_blank" : ""} rel={external ? "noopener noreferrer" : ""} href={href} className={className} {...rest}>
-			{children}
-		</Link>
-	);
-};
+}) => (
+	<Link 
+		data-pyro-ui="link" 
+		href={href} 
+		className={className}
+		{...external && {
+			target: "_blank",
+			rel: "noopener noreferrer"
+		}}
+		{...props}
+	>
+		{children}
+	</Link>
+);

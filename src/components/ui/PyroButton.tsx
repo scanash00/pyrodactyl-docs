@@ -1,8 +1,8 @@
+import type { ButtonHTMLAttributes } from "react";
 import type { VariantProps } from "class-variance-authority";
 import { cva, cx } from "class-variance-authority";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
-
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 import LoadingIcon from "@/components/ui/LoadingIcon";
@@ -47,7 +47,7 @@ const button = cva(
 			variant: "primary",
 			size: "medium",
 		},
-	},
+	}
 );
 
 export const PyroButton = ({
@@ -55,10 +55,8 @@ export const PyroButton = ({
 	leftChildren,
 	rightChildren,
 	pendingChildren,
-
 	href,
 	external = false,
-
 	isArrow,
 	isPending,
 	className = "",
@@ -68,51 +66,45 @@ export const PyroButton = ({
 	leftChildren?: React.ReactNode;
 	rightChildren?: React.ReactNode;
 	pendingChildren?: React.ReactNode;
-
 	href?: string;
 	external?: boolean;
-
 	isArrow?: boolean;
 	isPending?: boolean;
 	className?: string;
-	disabled?: boolean;
-	type?: "button" | "submit" | "reset";
-} & VariantProps<typeof button>) => {
-	const { ...rest } = props;
+} & ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof button>) => {
+	const buttonContent = isPending ? (
+		<>
+			<div className="p-0.5">
+				<LoadingIcon className="text-white" />
+			</div>
+			{pendingChildren}
+		</>
+	) : (
+		<>
+			{leftChildren}
+			{children}
+			{rightChildren}
+			{isArrow && <ArrowRightIcon className="h-4 w-4" />}
+		</>
+	);
+
+	if (href) {
+		return (
+			<PyroLink href={href} external={external} className={twMerge(cx(button(props), className))} {...props}>
+				{buttonContent}
+			</PyroLink>
+		);
+	}
 
 	return (
-		<>
-			{href ? (
-				<PyroLink href={href} external={external} className={twMerge(cx(button(rest), className))} {...rest}>
-					{leftChildren}
-					{children}
-					{rightChildren}
-					{isArrow && <ArrowRightIcon className="h-4 w-4" />}
-				</PyroLink>
-			) : (
-				<button
-					className={clsx(twMerge(cx(button(rest), className)), {
-						"pointer-events-none opacity-40": isPending,
-					})}
-					{...rest}
-				>
-					{isPending ? (
-						<>
-							<div className="p-0.5">
-								<LoadingIcon />
-							</div>
-							{pendingChildren}
-						</>
-					) : (
-						<>
-							{leftChildren}
-							{children}
-							{rightChildren}
-							{isArrow && <ArrowRightIcon className="h-4 w-4" />}
-						</>
-					)}
-				</button>
-			)}
-		</>
+		<button
+			className={clsx(twMerge(cx(button(props), className)), {
+				"pointer-events-none opacity-40": isPending,
+			})}
+			disabled={isPending}
+			{...props}
+		>
+			{buttonContent}
+		</button>
 	);
 };
