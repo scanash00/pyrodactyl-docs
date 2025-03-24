@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 	metadataBase: new URL('https://pyrodactyl.dev'),
 	title: "Pyro - Pyrodactyl",
 	description:
-		"Pyrodactyl is Pyro's open, secure, and scalable server management platform. It's the world's best Pterodactyl panel with incredible performance and unmatched features.",
+		"Pyrodactyl is an open, secure, and scalable servers platform. It's the world's best Pterodactyl panel with incredible performance and unmatched features.",
 	openGraph: {
 		title: "Pyro - Pyrodactyl",
 		description:
-			"Pyrodactyl is Pyro's open, secure, and scalable server management platform. It's the world's best Pterodactyl panel with incredible performance and unmatched features.",
+			"Pyrodactyl is an open, secure, and scalable servers platform. It's the world's best Pterodactyl panel with incredible performance and unmatched features.",
 		images: [{ url: "/og_pyrodactyl.png" }],
 	},
 };
