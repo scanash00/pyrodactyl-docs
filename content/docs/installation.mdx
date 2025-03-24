@@ -9,7 +9,7 @@ This comprehensive guide walks you through setting up Pyrodactyl using Docker, f
 For Pyrodactyl-specific issues, please use [Pyrodactyl GitHub Discussions](https://github.com/pyrohost/pyrodactyl/discussions) instead of Pterodactyl or Pelican support channels.
 </Callout>
 
-## Install for Existing Pterodactyl in Docker Users
+## Migrating from Pterodactyl (Docker)
 
 <Callout type="warn">
 Always make sure you take a backup of your Pterodactyl database and other relevant data.
@@ -24,7 +24,7 @@ If you already have Pterodactyl running in Docker, simply update your panel imag
 
 You can swap back whenever you'd like.
 
-## Install for Existing Native Pterodactyl Users
+## Migrating from Pterodactyl (Native -> Docker)
 
 ### Prerequisites
 - Linux system with root access
@@ -76,7 +76,7 @@ You can swap back whenever you'd like.
 
 Your panel is now running! You can access it at the same URL as before, and use the same user accounts.
 
-### Non-Docker (Native migration)
+### Migrating from Pterodactyl (Native)
 
 <Callout type="note">
 The latest [NodeJS LTS](https://nodejs.org/) is required to be installed to migrate without Docker.
@@ -92,6 +92,12 @@ npm ci && npm run ship
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
+<Callout type="note">
+Windows is currently only supported for development purposes.
+</Callout>
+
+# Fresh Installation
+
 ### Prerequisites
 - Linux system with root access
 - [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
@@ -100,11 +106,6 @@ chmod -R 755 storage/* bootstrap/cache/
 - Avoid using Snap-based Docker installations on Ubuntu
 - Enable Docker auto-start on boot
 
-<Callout type="note">
-Windows is currently only supported for development purposes.
-</Callout>
-
-### Fresh Installation
 1. Download and configure the [docker-compose.example.yml](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml)
    - Modify placeholder variables under x-common
    - Adjust exposed ports if needed
@@ -155,6 +156,13 @@ In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend 
    ```bash
    docker ps | grep wings
    ```
+
+4. If applicable, allow wings in your firewall:
+   - ufw:
+     - ```bash
+       ufw allow 2022
+       ufw allow 8080
+       ```
 
 ## Post-Installation Steps
 
