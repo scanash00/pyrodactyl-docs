@@ -160,10 +160,15 @@ In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend 
    ```
 
 4. If applicable, allow wings in your firewall:
-   - ufw:
+   - If using `ufw`:
      - ```bash
        ufw allow 2022
        ufw allow 8080
+       ```
+   - If using `iptables`:
+     - ```bash
+       iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+       iptables -A INPUT -p tcp --dport 2022 -j ACCEPT
        ```
 
 ## Post-Installation Steps
@@ -172,8 +177,9 @@ In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend 
 For user password reset emails, etc, you'll need an SFTP server. For this, you can use:
 - [Resend](https://resend.com/)
 - [Mailersend](https://www.mailersend.com/)
+- [Maddy](https://maddy.email)
 
-Configure in Admin Panel → Settings
+You can configure SFTP settings in Admin Panel → Settings.
 
 ### DDoS protection
 If you're planning to have your server publicly accessible, your server could be vulnerable to DDoS attacks. Although not covered here due to its complexity, consider using:
@@ -192,3 +198,4 @@ If issues arise:
 - [Docker Documentation](https://docs.docker.com/)
 - [Pyrodactyl GitHub](https://github.com/pyrohost/pyrodactyl)
 - [Pterodactyl Documentation](https://pterodactyl.io/)
+- [Pyrodactyl Discord](https://discord.com/invite/RWjHy3Gsqs?utm_campaign=pyrodactyl_support)
