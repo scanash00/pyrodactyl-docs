@@ -24,7 +24,11 @@ If you already have Pterodactyl running in Docker, simply update your panel imag
 +image: ghcr.io/pyrohost/pyrodactyl:main
 ```
 
-You can swap back whenever you'd like.
+<Callout type="warn">
+Swapping between pyrodcatyl and Pterodactyl is not recommned or supported. We've added database migrations making it unlikely Pterodactyl will work when swapping back to it.
+Take a backup of your db if you care about it's validity!
+You have been Warned.
+</Callout>
 
 ## Migrating from Pterodactyl (Native -> Docker)
 
