@@ -161,12 +161,12 @@ In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend 
 
 4. If applicable, allow wings in your firewall:
    - If using `ufw`:
-     - ```bash
+       ```bash
        ufw allow 2022
        ufw allow 8080
        ```
    - If using `iptables`:
-     - ```bash
+       ```bash
        iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
        iptables -A INPUT -p tcp --dport 2022 -j ACCEPT
        ```
