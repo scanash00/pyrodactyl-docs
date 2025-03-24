@@ -1,0 +1,184 @@
+---
+title: Installation
+description: A comprehensive guide for setting up Pyrodactyl using Docker
+---
+
+This comprehensive guide walks you through setting up Pyrodactyl using Docker, from scratch to a fully functional system.
+
+<Callout type="info">
+For Pyrodactyl-specific issues, please use [Pyrodactyl GitHub Discussions](https://github.com/pyrohost/pyrodactyl/discussions) instead of Pterodactyl or Pelican support channels.
+</Callout>
+
+## Install for Existing Pterodactyl in Docker Users
+
+<Callout type="warn">
+Always make sure you take a backup of your Pterodactyl database and other relevant data.
+</Callout>
+
+If you already have Pterodactyl running in Docker, simply update your panel image in your docker-compose.yml file:
+
+```diff
+-image: ghcr.io/pterodactyl/panel:latest
++image: ghcr.io/pyrohost/pyrodactyl:main
+```
+
+You can swap back whenever you'd like.
+
+## Install for Existing Native Pterodactyl Users
+
+### Prerequisites
+- Linux system with root access
+- [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
+- Docker expertise and basic system administration skills
+- Consider [Portainer](https://docs.portainer.io/start/install) for easier Docker management
+- Avoid using Snap-based Docker installations on Ubuntu
+- Enable Docker auto-start on boot
+
+### Pyrodactyl Installation
+1. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and switch to it.
+2. Download and configure the [docker-compose.example.yml](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml)
+3. Modify placeholder variables under x-common
+4. Add port 443 if you aren't using a reverse proxy for HTTPS. Also set LE_EMAIL under panel in x-common to an email you have used for certbot.
+5. Copy the following environment variables from your Pterodactyl .env to your docker-compose.yml:
+   ```
+   APP_KEY
+   APP_URL
+   DB_CONNECTION
+   DB_HOST
+   DB_PORT
+   DB_DATABASE
+   DB_USERNAME
+   DB_PASSWORD
+   HASHIDS_SALT
+   HASHIDS_LENGTH (if it's not 8)
+   ```
+
+   The following are only applicable if email is set up:
+   ```
+   MAIL_MAILER
+   MAIL_HOST
+   MAIL_PORT
+   MAIL_USERNAME
+   MAIL_PASSWORD
+   MAIL_ENCRYPTION
+   MAIL_FROM_ADDRESS
+   MAIL_FROM_NAME
+   APP_SERVICE_AUTHOR
+   MAIL_DRIVER
+   ```
+
+6. If your database is running on the same machine as your panel, set it to listen on the IP 172.17.0.1, and change the DB_HOST environment variable to 172.17.0.1.
+7. Rename docker-compose.example.yml to docker-compose.yml
+8. Run the following command to start the panel:
+   ```bash
+   docker compose up -d
+   ```
+
+Your panel is now running! You can access it at the same URL as before, and use the same user accounts.
+
+### Non-Docker (Native migration)
+
+<Callout type="note">
+The latest [NodeJS LTS](https://nodejs.org/) is required to be installed to migrate without Docker.
+</Callout>
+
+Simply follow the manual [Pterodactyl updating guide](https://pterodactyl.io/panel/1.0/updating.html).
+
+However, on the Download the Update step, use these commands instead:
+
+```bash
+git clone https://github.com/pyrohost/pyrodactyl.git /var/www/pterodactyl --depth=2
+npm ci && npm run ship
+chmod -R 755 storage/* bootstrap/cache/
+```
+
+### Prerequisites
+- Linux system with root access
+- [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
+- Docker expertise and basic system administration skills
+- Consider [Portainer](https://docs.portainer.io/start/install) for easier Docker management
+- Avoid using Snap-based Docker installations on Ubuntu
+- Enable Docker auto-start on boot
+
+<Callout type="note">
+Windows is currently only supported for development purposes.
+</Callout>
+
+### Fresh Installation
+1. Download and configure the [docker-compose.example.yml](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml)
+   - Modify placeholder variables under x-common
+   - Adjust exposed ports if needed
+
+2. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and move or upload your edited compose file into it. Rename the file to docker-compose.yml
+
+3. In terminal, cd into the directory, and run the following command to start the panel:
+   ```bash
+   docker compose up -d
+   ```
+
+4. Run the command below, and go through its prompts to create an admin user:
+   ```bash
+   docker compose exec panel php artisan p:user:make
+   ```
+
+5. Check that the panel is accessible using the IP address or domain of your server
+
+## Panel Configuration
+
+1. Access the panel via your server's IP/domain and login to your previously created user
+2. Navigate to admin panel (three dots menu → Admin)
+3. Navigate to Locations, make a new location. It can have any name
+4. Navigate to Nodes, create a new node
+   - FQDN is the domain or IP address (if you're not using HTTPS) of the server you're going to use as a backend
+   - You should make sure the daemon ports are free on your backend server
+
+5. On the new node, go to the:
+   - Configuration tab: Copy the contents to /etc/pterodactyl/config.yml on your backend server
+   - Allocation tab: Add some allocations to use for your servers. The IP should be 0.0.0.0. If you want to show a different IP in the UI (e.g. a subdomain), add an alias. You can input a range of ports like 25565-26000
+
+## Wings Installation
+
+In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend for your servers, which we will also use Docker for. You can have multiple Wings instances on different servers, but for now, we're setting up just one.
+
+1. Run the commands below to setup the compose for Wings:
+   ```bash
+   mkdir pyrodactyl-wings && cd pyrodactyl-wings
+   wget https://github.com/pterodactyl/wings/raw/develop/docker-compose.example.yml -O docker-compose.yml
+   ```
+
+2. Run the following command to start Wings:
+   ```bash
+   docker compose up -d
+   ```
+
+3. Verify Wings status:
+   ```bash
+   docker ps | grep wings
+   ```
+
+## Post-Installation Steps
+
+### Email Configuration
+For user password reset emails, etc, you'll need an SFTP server. For this, you can use:
+- [Resend](https://resend.com/)
+- [Mailersend](https://www.mailersend.com/)
+
+Configure in Admin Panel → Settings
+
+### DDoS protection
+If you're planning to have your server publicly accessible, your server could be vulnerable to DDoS attacks. Although not covered here due to its complexity, consider using:
+- [Cloudflare Tunnels](https://www.cloudflare.com/products/tunnel/)
+- [TCPShield](https://tcpshield.com/)
+
+The goal is to not have your server's IP address on any of your known domains.
+
+## Troubleshooting
+If issues arise:
+1. Test with vanilla Pterodactyl by changing panel image to ghcr.io/pterodactyl/panel:latest
+2. Debug issues
+3. Switch back to Pyrodactyl image when resolved
+
+## Additional Resources
+- [Docker Documentation](https://docs.docker.com/)
+- [Pyrodactyl GitHub](https://github.com/pyrohost/pyrodactyl)
+- [Pterodactyl Documentation](https://pterodactyl.io/)
