@@ -43,4 +43,5 @@ export const baseOptions: BaseLayoutProps = {
       active: 'nested-url',
     },
   ],
+  githubUrl: 'https://github.com/pyrohost/pyrodactyl',
 };
