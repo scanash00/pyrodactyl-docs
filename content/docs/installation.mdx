@@ -25,9 +25,7 @@ If you already have Pterodactyl running in Docker, simply update your panel imag
 ```
 
 <Callout type="warn">
-Swapping between pyrodcatyl and Pterodactyl is not recommned or supported. We've added database migrations making it unlikely Pterodactyl will work when swapping back to it.
-Take a backup of your db if you care about it's validity!
-You have been Warned.
+Swapping between Pyrodactyl and Pterodactyl is unsupported and can cause data loss. Pyrodactyl makes changes to the database schema, making it unlikely Pterodactyl will function correctly. If you care about the validity of your database, **make a backup** before swapping back to Pterodactyl.
 </Callout>
 
 ## Migrating from Pterodactyl (Native -> Docker)
@@ -44,7 +42,7 @@ You have been Warned.
 1. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and switch to it.
 2. Download and configure the [docker-compose.example.yml](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml)
 3. Modify placeholder variables under x-common
-4. Add port 443 if you aren't using a reverse proxy for HTTPS. Also set LE_EMAIL under panel in x-common to an email you have used for certbot.
+4. If you are using builtin HTTPS, add port 443 (to the `ports` section under the `panel` container) and set the LE_EMAIL variable (in the `panel` section under `x-common`) to a registered Let's Encrypt email address.
 5. Copy the following environment variables from your Pterodactyl .env to your docker-compose.yml:
    ```
    APP_KEY
