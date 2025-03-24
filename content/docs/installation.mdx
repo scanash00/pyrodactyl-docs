@@ -5,98 +5,13 @@ description: A comprehensive guide for setting up Pyrodactyl using Docker
 
 This comprehensive guide walks you through setting up Pyrodactyl using Docker, from scratch to a fully functional system.
 
+<Callout type="note">
+The guide for migration has moved to a [new page](migration).
+</Callout>
+
 <Callout type="info">
 For Pyrodactyl-specific issues, please use [Pyrodactyl GitHub Discussions](https://github.com/pyrohost/pyrodactyl/discussions) instead of Pterodactyl or Pelican support channels.
 </Callout>
-
-# Migrating from Pterodactyl
-
-## Migrating from Pterodactyl (Docker)
-
-<Callout type="warn">
-Always make sure you take a backup of your Pterodactyl database and other relevant data.
-</Callout>
-
-If you already have Pterodactyl running in Docker, simply update your panel image in your docker-compose.yml file:
-
-```diff
--image: ghcr.io/pterodactyl/panel:latest
-+image: ghcr.io/pyrohost/pyrodactyl:main
-```
-
-<Callout type="warn">
-Swapping between pyrodcatyl and Pterodactyl is not recommned or supported. We've added database migrations making it unlikely Pterodactyl will work when swapping back to it.
-Take a backup of your db if you care about it's validity!
-You have been Warned.
-</Callout>
-
-## Migrating from Pterodactyl (Native -> Docker)
-
-### Prerequisites
-- Linux system with root access
-- [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
-- Docker expertise and basic system administration skills
-- Consider [Portainer](https://docs.portainer.io/start/install) for easier Docker management
-- Avoid using Snap-based Docker installations on Ubuntu
-- Enable Docker auto-start on boot
-
-### Pyrodactyl Installation
-1. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and switch to it.
-2. Download and configure the [docker-compose.example.yml](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml)
-3. Modify placeholder variables under x-common
-4. Add port 443 if you aren't using a reverse proxy for HTTPS. Also set LE_EMAIL under panel in x-common to an email you have used for certbot.
-5. Copy the following environment variables from your Pterodactyl .env to your docker-compose.yml:
-   ```
-   APP_KEY
-   APP_URL
-   DB_CONNECTION
-   DB_HOST
-   DB_PORT
-   DB_DATABASE
-   DB_USERNAME
-   DB_PASSWORD
-   HASHIDS_SALT
-   HASHIDS_LENGTH (if it's not 8)
-   ```
-
-   The following are only applicable if email is set up:
-   ```
-   MAIL_MAILER
-   MAIL_HOST
-   MAIL_PORT
-   MAIL_USERNAME
-   MAIL_PASSWORD
-   MAIL_ENCRYPTION
-   MAIL_FROM_ADDRESS
-   MAIL_FROM_NAME
-   APP_SERVICE_AUTHOR
-   MAIL_DRIVER
-   ```
-
-6. If your database is running on the same machine as your panel, set it to listen on the IP 172.17.0.1, and change the DB_HOST environment variable to 172.17.0.1.
-7. Rename docker-compose.example.yml to docker-compose.yml
-8. Run the following command to start the panel:
-   ```bash
-   docker compose up -d
-   ```
-
-Your panel is now running! You can access it at the same URL as before, and use the same user accounts.
-
-## Migrating from Pterodactyl (Native)
-
-<Callout type="note">
-The latest [NodeJS LTS](https://nodejs.org/) is required to be installed to migrate without Docker.
-</Callout>
-
-Simply follow the manual [Pterodactyl updating guide](https://pterodactyl.io/panel/1.0/updating.html).
-
-However, on the Download the Update step, use these commands instead:
-
-```bash
-git clone https://github.com/pyrohost/pyrodactyl.git /var/www/pterodactyl --depth=2
-npm ci && npm run ship
-chmod -R 755 storage/* bootstrap/cache/
-```
 
 <Callout type="note">
 Windows is currently only supported for development purposes.
@@ -112,11 +27,11 @@ Windows is currently only supported for development purposes.
 - Avoid using Snap-based Docker installations on Ubuntu
 - Enable Docker auto-start on boot
 
-1. Download and configure the [docker-compose.example.yml](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml)
-   - Modify placeholder variables under x-common
-   - Adjust exposed ports if needed
+1. Download and configure the docker-compose file [(template)](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml).
+   - Modify all placeholder variables under `x-common`
+   - Adjust exposed ports if needed (add 443 if you want to use HTTPS)
 
-2. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and move or upload your edited compose file into it. Rename the file to docker-compose.yml
+2. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and move or upload your edited compose file into it. Rename the file to docker-compose.yml.
 
 3. In terminal, cd into the directory, and run the following command to start the panel:
    ```bash
@@ -128,7 +43,7 @@ Windows is currently only supported for development purposes.
    docker compose exec panel php artisan p:user:make
    ```
 
-5. Check that the panel is accessible using the IP address or domain of your server
+5. Check that the panel is accessible using the IP address or domain of your server.
 
 ## Panel Configuration
 
