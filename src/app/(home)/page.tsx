@@ -45,7 +45,7 @@ const features = [
 ];
 
 const buildTimes = [
-	{ name: "Pyrodactyl (Vite and Turbo)", time: "87 ms", width: "0.145%", highlight: true },
+	{ name: "Pyrodactyl (Vite and Turbo)", time: "87 ms", width: "1.145%", highlight: true },
 	{ name: "Pterodactyl v1 (Webpack 4)", time: "35.3 sec", width: "77.7%" },
 	{ name: "Pterodactyl v2 (Webpack 4)", time: "39.42 sec", width: "87.62%" },
 	{ name: "Pelican (Webpack 4)", time: "40.9 sec", width: "90.88%" },
@@ -116,11 +116,11 @@ const Page = () => {
 						<div className="absolute -right-4 bottom-0 text-xs opacity-50">45 sec</div>
 						<h1 className="mb-2 max-w-4xl font-extrabold text-[max(30px,min(5vw,42px))] leading-[1.09] tracking-tighter">Build times comparison</h1>
 						{buildTimes.map((item) => (
-							<div key={item.name} className="chart-row flex flex-row items-center gap-8">
+							<div key={item.name} className="chart-row flex flex-row items-center gap-8 ">
 								<p className="text-sm font-bold whitespace-nowrap w-60">{item.name}</p>
 								<div className="w-full flex flex-row items-center gap-2">
 									<div 
-										className={`chart-bar rounded-sm h-4 ${item.highlight ? 'bg-brand' : 'bg-[#ffffff77]'}`} 
+										className={`chart-bar rounded-sm h-4 ${item.highlight ? 'dark:bg-brand bg-red-600' : 'dark:bg-[#ffffff77] bg-black'}`} 
 										style={{ width: item.width }}
 									/>
 									<span className="text-xs font-bold whitespace-nowrap">{item.time}</span>
