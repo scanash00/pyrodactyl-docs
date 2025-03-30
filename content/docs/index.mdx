@@ -1,79 +1,137 @@
 ---
-title: Pyrodactyl Documentation
-description: The Pterodactyl-based game server panel that's faster, smaller, safer, and more accessible
+title: Installation
+description: A comprehensive guide for setting up Pyrodactyl using Docker
 ---
 
-![Banner with Pyrodactyl Logo](https://camo.githubusercontent.com/6029bb2513ba810cc82a39cbb5f72589cd17a70bb10c434a4d64b079ffbd4327/68747470733a2f2f692e696d6775722e636f6d2f523130697667392e706e67)
+This comprehensive guide walks you through setting up Pyrodactyl using Docker, from scratch to a fully functional system.
 
-# Welcome to Pyrodactyl
-
-<Callout type="warn">
-Pyrodactyl is under development and pre-release. Some UI elements may appear broken, and there might be some bugs.
+<Callout type="note">
+  The guide for migration has moved to a [new page](migration).
 </Callout>
 
 <Callout type="info">
-For Pyrodactyl-specific issues, please use Pyrodactyl GitHub Discussions or Pyrodactyl Discord instead of Pterodactyl or Pelican support channels.
+  For Pyrodactyl-specific issues, please use [Pyrodactyl GitHub
+  Discussions](https://github.com/pyrohost/pyrodactyl/discussions) instead of
+  Pterodactyl or Pelican support channels.
 </Callout>
-
-Pyrodactyl is the Pterodactyl-based game server management panel that focuses on performance enhancements, a reimagined, accessible interface, and top-tier developer experience. Builds faster, compiles smaller: Pyrodactyl is the world's best Pterodactyl.
-
-![Dashboard Image](https://camo.githubusercontent.com/8a481d988dbc0114a0de65318e1688703cac404a0f1d652cbdd992829c3b312b/68747470733a2f2f692e696d6775722e636f6d2f597166674d59732e6a706567)
-
-## Changes from vanilla Pterodactyl
-
-- **Smaller bundle sizes**: Pyrodactyl is built using Vite, and significant re-architecting of the application means Pyrodactyl's initial download size is over 170 times smaller than leading Pterodactyl forks, and Pelican
-- **Faster build times**: Pyrodactyl completes builds in milliseconds with the power of Turbo. Cold builds with zero cache finish in under 7 seconds.
-- **Faster loading times**: Pyrodactyl's load times are, on average, over 16 times faster than other closed-source Pterodactyl forks and Pelican. Smarter code splitting and chunking means that pages you visit in the panel only load necessary resources on demand. Better caching means that everything is simply snappy.
-- **More secure**: Pyrodactyl's modern architecture means most severe and easily exploitable CVEs simply do not exist. We have also implemented SRI and integrity checks for production builds.
-- **More accessible**: Pyro believes that gaming should be easily available for everyone. Pyrodactyl builds with the latest Web accessibility guidelines in mind. Pyrodactyl is entirely keyboard-navigable, even context menus., and screen-readers are easily compatible.
-- **More approachable**: Pyrodactyl's friendly, approachable interface means that anyone can confidently run a game server with Pyro.
-
-![Dashboard Image](https://camo.githubusercontent.com/e3c78145a080fa55306a5e788b5e42672935abdcd2fd20bc3d1287cab605afc0/68747470733a2f2f692e696d6775722e636f6d2f6b48484f5736502e6a706567)
-
-<Cards>
-  <Card title="Installation Guide" href="/docs/installation">
-    Set up Pyrodactyl using Docker or native installation
-  </Card>
-  <Card title="Installation Guides" href="/docs/installation-guides">
-    Community guides for different platforms
-  </Card>
-  <Card title="Configuration" href="/docs/installation#panel-configuration">
-    Learn how to configure your Pyrodactyl instance
-  </Card>
-  <Card title="Wings Setup" href="/docs/installation#wings-installation">
-    Configure Wings as your game server backend
-  </Card>
-</Cards>
-
-## Quick Start
-
-For existing Pterodactyl Docker users, you can quickly switch to Pyrodactyl by updating your panel image:
-
-```diff
--image: ghcr.io/pterodactyl/panel:latest
-+image: ghcr.io/pyrohost/pyrodactyl:main
-```
 
 <Callout type="note">
-Windows is currently only supported for development purposes.
+  Windows is currently only supported for development purposes.
 </Callout>
 
-## Local Development
+# Fresh Installation
 
-See our development pages on how to get started:
+### Prerequisites
 
-- [Local Dev on Windows (Vagrant)](/docs/local-development#local-dev-with-vagrant-on-windows)
-- [Local Dev on Linux (Vagrant)](/docs/local-development#local-dev-with-vagrant-on-linux)
-- [Local Dev on Linux (Nix)](/docs/local-development#local-dev-with-nix)
+- Linux system with root access
+- [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
+- Docker expertise and basic system administration skills
+- Consider [Portainer](https://docs.portainer.io/start/install) for easier Docker management
+- Avoid using Snap-based Docker installations on Ubuntu
+- Enable Docker auto-start on boot
 
-<Callout>
-Nix is recommended if you can't get Vagrant working
-</Callout>
+1. Download and configure the docker-compose file [(template)](https://raw.githubusercontent.com/pyrohost/pyrodactyl/main/docker-compose.example.yml).
 
-## License
+   - Modify all placeholder variables under `x-common`
+   - Adjust exposed ports if needed (add 443 if you want to use HTTPS)
 
-Pterodactyl® Copyright 2015 - 2022 Dane Everitt and contributors.
+2. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and move or upload your edited compose file into it. Rename the file to docker-compose.yml.
 
-Pyrodactyl™ Copyright 2025 Pyro Inc. and contributors.
+3. In terminal, cd into the directory, and run the following command to start the panel:
 
-AGPL-3.0-or-later
+   ```bash
+   docker compose up -d
+   ```
+
+4. Run the command below, and go through its prompts to create an admin user:
+
+   ```bash
+   docker compose exec panel php artisan p:user:make
+   ```
+
+5. Check that the panel is accessible using the IP address or domain of your server.
+
+## Panel Configuration
+
+1. Access the panel via your server's IP/domain and login to your previously created user
+2. Navigate to admin panel (three dots menu → Admin)
+3. Navigate to Locations, make a new location. It can have any name
+4. Navigate to Nodes, create a new node
+
+   - FQDN is the domain or IP address (if you're not using HTTPS) of the server you're going to use as a backend
+   - You should make sure the daemon ports are free on your backend server
+
+5. On the new node, go to the:
+   - Configuration tab: Copy the contents to /etc/pterodactyl/config.yml on your backend server
+   - Allocation tab: Add some allocations to use for your servers. The IP should be 0.0.0.0. If you want to show a different IP in the UI (e.g. a subdomain), add an alias. You can input a range of ports like 25565-26000
+
+## Wings Installation
+
+In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend for your servers, which we will also use Docker for. You can have multiple Wings instances on different servers, but for now, we're setting up just one.
+
+1. Run the commands below to setup the compose for Wings:
+
+   ```bash
+   mkdir pyrodactyl-wings && cd pyrodactyl-wings
+   wget https://github.com/pterodactyl/wings/raw/develop/docker-compose.example.yml -O docker-compose.yml
+   ```
+
+2. Run the following command to start Wings:
+
+   ```bash
+   docker compose up -d
+   ```
+
+3. Verify Wings status:
+
+   ```bash
+   docker ps | grep wings
+   ```
+
+4. If applicable, allow wings in your firewall:
+   - If using `ufw`:
+     ```bash
+     ufw allow 2022
+     ufw allow 8080
+     ```
+   - If using `iptables`:
+     ```bash
+     iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+     iptables -A INPUT -p tcp --dport 2022 -j ACCEPT
+     ```
+
+## Post-Installation Steps
+
+### Email Configuration
+
+For user password reset emails, etc, you'll need an SFTP server. For this, you can use:
+
+- [Resend](https://resend.com/)
+- [Mailersend](https://www.mailersend.com/)
+- [Maddy](https://maddy.email)
+
+You can configure SFTP settings in Admin Panel → Settings.
+
+### DDoS protection
+
+If you're planning to have your server publicly accessible, your server could be vulnerable to DDoS attacks. Although not covered here due to its complexity, consider using:
+
+- [Cloudflare Tunnels](https://www.cloudflare.com/products/tunnel/)
+- [TCPShield](https://tcpshield.com/)
+
+The goal is to not have your server's IP address on any of your known domains.
+
+## Troubleshooting
+
+If issues arise:
+
+1. Test with vanilla Pterodactyl by changing panel image to ghcr.io/pterodactyl/panel:latest
+2. Debug issues
+3. Switch back to Pyrodactyl image when resolved
+
+## Additional Resources
+
+- [Docker Documentation](https://docs.docker.com/)
+- [Pyrodactyl GitHub](https://github.com/pyrohost/pyrodactyl)
+- [Pterodactyl Documentation](https://pterodactyl.io/)
+- [Pyrodactyl Discord](https://discord.com/invite/RWjHy3Gsqs?utm_campaign=pyrodactyl_support)
