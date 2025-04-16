@@ -1,0 +1,25 @@
+---
+title: Docker Migration
+description: Guide for migrating from Pterodactyl to Pyrodactyl using Docker
+---
+
+<Callout type="info">
+  For Pyrodactyl-specific issues, please use [Pyrodactyl GitHub Discussions](https://github.com/pyrohost/pyrodactyl/discussions) instead of Pterodactyl or Pelican support channels.
+</Callout>
+
+## Migrating from Pterodactyl (Docker)
+
+<Callout type="warn">
+  Always make sure you take a backup of your Pterodactyl database and other relevant data.
+</Callout>
+
+If you already have Pterodactyl running in Docker, simply update your panel image in your `docker-compose.yml` file:
+
+```diff
+-image: ghcr.io/pterodactyl/panel:latest
++image: ghcr.io/pyrohost/pyrodactyl:main
+```
+
+<Callout type="warn">
+  Swapping between Pyrodactyl and Pterodactyl is unsupported and can cause data loss. Pyrodactyl makes changes to the database schema, making it unlikely Pterodactyl will function correctly. If you care about the validity of your database, **make a backup** before swapping back to Pterodactyl.
+</Callout>
