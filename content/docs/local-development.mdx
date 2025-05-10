@@ -6,6 +6,7 @@ description: Set up a local development environment using Nix, Vagrant on Linux,
 # Local Development
 
 There are three ways to set up a local development environment for Pyrodactyl:
+
 - Using Nix on Linux (recommended for faster performance)
 - Using Vagrant on Linux (traditional VM-based approach)
 - Using Vagrant on Windows (first Pterodactyl panel with Windows development support)
@@ -13,6 +14,7 @@ There are three ways to set up a local development environment for Pyrodactyl:
 ## Local Dev with Nix
 
 This approach offers several advantages:
+
 - Faster boot times without VM overhead
 - Lower resource consumption
 - Flexible configuration through nix/buildsteps.sh
@@ -22,6 +24,7 @@ This approach offers several advantages:
 
 - Nix Package Manager
 - NodeJS (latest LTS version)
+- pnpm
 - Docker Engine
 - Git
 
@@ -32,20 +35,25 @@ This approach offers several advantages:
 2. Clone the Pyrodactyl panel repository
 
 3. Install dependencies:
+
    ```bash
-   npm i
+   pnpm i
    ```
 
 4. Build the application:
+
    ```bash
-   npm run ship
+   pnpm run ship
    ```
+
    This step:
+
    - Caches build results
    - Uploads sourcemaps to Sentry
    - Subsequent builds are much faster if code hasn't changed
 
 5. Create environment file:
+
    ```bash
    cp .env.nix .env
    ```
@@ -58,6 +66,7 @@ This approach offers several advantages:
 ### Nix Setup Process
 
 The initialization process is completely automated:
+
 - Sets up Wings and required services
 - Configures databases and application
 - Takes approximately 15 minutes
@@ -65,7 +74,7 @@ The initialization process is completely automated:
 Once you see "Pyrodactyl is now up and running at localhost:8000", access the application and login using the credentials shown in your console.
 
 <Callout type="warn">
-Always use localhost:8000, not 127.0.0.1, to avoid CORS issues!
+  Always use localhost:8000, not 127.0.0.1, to avoid CORS issues!
 </Callout>
 
 Visit `http://localhost:8000/admin` to create your first server.
@@ -73,7 +82,9 @@ Visit `http://localhost:8000/admin` to create your first server.
 ### Known Issues with Nix
 
 <Callout type="error">
-Currently, Pterodactyl Wings has compatibility issues with the NixOS development environment. This limitation is temporary and will be addressed in future updates.
+  Currently, Pterodactyl Wings has compatibility issues with the NixOS
+  development environment. This limitation is temporary and will be addressed in
+  future updates.
 </Callout>
 
 ## Local Dev with Vagrant on Linux
@@ -81,6 +92,7 @@ Currently, Pterodactyl Wings has compatibility issues with the NixOS development
 ### Prerequisites for Vagrant Setup
 
 - NodeJS (Latest LTS version)
+- pnpm
 - Git
 - Vagrant
 - libvirtd
@@ -89,16 +101,19 @@ Currently, Pterodactyl Wings has compatibility issues with the NixOS development
 ### Installing NFS Utils
 
 For Fedora:
+
 ```bash
 sudo dnf install nfs-utils
 ```
 
 For Ubuntu/Debian:
+
 ```bash
 sudo apt-get install nfs-kernel-server
 ```
 
 Enable and start the NFS server:
+
 ```bash
 # Start the service
 sudo systemctl start nfs-server
@@ -112,15 +127,19 @@ sudo systemctl enable nfs-server
 1. Clone the Pyrodactyl panel repository
 
 2. Install dependencies:
+
    ```bash
-   npm i
+   pnpm i
    ```
 
 3. Build the project:
+
    ```bash
-   npm run ship
+   pnpm run ship
    ```
+
    This step:
+
    - Caches build results
    - Uploads sourcemaps to Sentry
    - Subsequent builds without code changes are nearly instant
@@ -128,14 +147,18 @@ sudo systemctl enable nfs-server
 4. If using libvirt, install the vagrant-libvirt plugin
 
 <Callout type="info">
-Files must be in /var/www/pterodactyl for vagrant up to work, unless specified otherwise in Vagrantfile
+  Files must be in /var/www/pterodactyl for vagrant up to work, unless specified
+  otherwise in Vagrantfile
 </Callout>
 
 5. Initialize the environment:
+
    ```bash
    vagrant up
    ```
+
    This process:
+
    - Sets up wings and required services
    - Configures databases and applications
    - Takes approximately 15 minutes
@@ -143,19 +166,23 @@ Files must be in /var/www/pterodactyl for vagrant up to work, unless specified o
 6. Access Pyrodactyl at `localhost:3000` and login with the console-provided credentials
 
 <Callout type="warn">
-Always use localhost, not 127.0.0.1, to avoid CORS issues!
+  Always use localhost, not 127.0.0.1, to avoid CORS issues!
 </Callout>
 
 ### Troubleshooting Vagrant Setup
 
 #### VM Configuration
+
 When using alternatives to libvirtd, modify the Vagrantfile to allocate more than the default 512MB RAM
 
 #### NFS Mount Error
+
 If you encounter a "Connection refused" error during first `vagrant up`, simply retry the command
 
 #### Permission Issues
+
 Run commands with sudo:
+
 ```bash
 sudo vagrant up
 ```
@@ -167,6 +194,7 @@ Pyrodactyl is the world's first Pterodactyl panel that can be developed and run 
 ### Prerequisites for Windows
 
 - NodeJS (latest LTS version)
+- pnpm
 - Vagrant
 - Git
 
@@ -175,24 +203,31 @@ Pyrodactyl is the world's first Pterodactyl panel that can be developed and run 
 1. Clone the Pyrodactyl panel repository
 
 2. Install dependencies:
+
    ```bash
-   npm i
+   pnpm i
    ```
 
 3. Build the application:
+
    ```bash
-   npm run ship
+   pnpm run ship
    ```
+
    This step:
+
    - Caches build results
    - Uploads sourcemaps to Sentry
    - Subsequent builds are much faster if code hasn't changed
 
 4. Initialize the environment:
+
    ```bash
    vagrant up
    ```
+
    This process:
+
    - Sets up Pterodactyl Wings and necessary services
    - Configures databases and applications
    - Takes approximately 15 minutes
@@ -200,7 +235,7 @@ Pyrodactyl is the world's first Pterodactyl panel that can be developed and run 
 5. Login using the credentials shown in your console
 
 <Callout type="warn">
-Always use localhost:8000, not 127.0.0.1, to avoid CORS issues!
+  Always use localhost:8000, not 127.0.0.1, to avoid CORS issues!
 </Callout>
 
 6. Visit `http://localhost:8000/admin` to create your first server
@@ -208,19 +243,23 @@ Always use localhost:8000, not 127.0.0.1, to avoid CORS issues!
 ### Development Notes
 
 #### Development Server
-- Running `npm run dev` serves a development build at localhost:3000 with Hot Module Replacement (HMR)
+
+- Running `pnpm run dev` serves a development build at localhost:3000 with Hot Module Replacement (HMR)
 - For production preview:
   1. Stop the dev server
-  2. Run `npm run ship`
+  2. Run `pnpm run ship`
   3. Access http://localhost:3000
 
 #### Troubleshooting Connection Issues
+
 - If localhost:3000 hangs indefinitely:
   1. Check for port conflicts with other applications (e.g., Steam using port 8080)
   2. After resolving conflicts, run `vagrant reload` to reset port mappings
 
 #### VirtualBox Shared Folders
+
 If encountering "Vagrant was unable to mount VirtualBox shared folders":
+
 ```bash
 # Install vbguest plugin
 vagrant plugin install vagrant-vbguest
@@ -230,13 +269,13 @@ vagrant plugin update vagrant-vbguest
 ```
 
 #### Performance Tips
+
 - Set up Remote Caching via Turbo for faster builds
 - Cached results allow production server builds to complete in milliseconds
 
 #### Virtualization Notes
-<Callout type="error">
-Avoid Hyper-V as your virtualization layer
-</Callout>
+
+<Callout type="error">Avoid Hyper-V as your virtualization layer</Callout>
 
 - Recommended: VMWare Workstation or VirtualBox
 - If prompted for password with Hyper-V, use your Windows credentials
