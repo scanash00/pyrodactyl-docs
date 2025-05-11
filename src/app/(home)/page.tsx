@@ -64,9 +64,14 @@ const Page = () => {
 							<p className="text-gray-600 dark:text-[#ffffffbb] text-[20px] leading-[155%]">
 								It&apos;s the world&apos;s best Pterodactyl panel. Unmatched performance and features.
 							</p>
-							<PyroButton variant="secondary" href="https://github.com/pyrohost/pyrodactyl" isArrow external>
-								Star on GitHub
-							</PyroButton>
+							<div className="flex gap-2 flex-col">
+								<PyroButton variant="secondary" href="/docs" isArrow>
+									View Documentation
+								</PyroButton>
+								<PyroButton variant="tertiary" href="https://github.com/pyrohost/pyrodactyl" isArrow external>
+									Star on GitHub
+								</PyroButton>
+							</div>
 						</div>
 					</div>
 					<div className="relative mt-8 min-h-[750px] w-full">

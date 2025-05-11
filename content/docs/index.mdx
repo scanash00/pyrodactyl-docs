@@ -13,7 +13,9 @@ description: The Pterodactyl-based game server panel that's faster, smaller, saf
 </Callout>
 
 <Callout type="info">
-  For Pyrodactyl-specific issues, please use Pyrodactyl GitHub Discussions or join our Discord community at [https://discord.gg/FGWKZT5dxv](https://discord.gg/FGWKZT5dxv) for support.
+  For Pyrodactyl-specific issues, please use Pyrodactyl GitHub Discussions or
+  join our Discord community at
+  [https://discord.gg/FGWKZT5dxv](https://discord.gg/FGWKZT5dxv) for support.
 </Callout>
 
 Pyrodactyl is the Pterodactyl-based game server management panel that focuses on performance enhancements, a reimagined, accessible interface, and top-tier developer experience. Builds faster, compiles smaller: Pyrodactyl is the world's best Pterodactyl.
@@ -32,17 +34,29 @@ Pyrodactyl is the Pterodactyl-based game server management panel that focuses on
 ![Dashboard Image](https://camo.githubusercontent.com/e3c78145a080fa55306a5e788b5e42672935abdcd2fd20bc3d1287cab605afc0/68747470733a2f2f692e696d6775722e636f6d2f6b48484f5736502e6a706567)
 
 <Cards>
-  <Card title="Installation Guide" href="/docs/installation">
-    Set up Pyrodactyl using Docker or native installation
+  <Card title="Installation Guide" href="/docs/installation/fresh-installation">
+    Set up Pyrodactyl using Docker installation
   </Card>
-  <Card title="Installation Guides" href="/docs/installation-guides">
+  <Card
+    title="Installation Guides"
+    href="/docs/installation/community-install-guides"
+  >
     Community guides for different platforms
   </Card>
-  <Card title="Configuration" href="/docs/installation#panel-configuration">
+  <Card
+    title="Configuration"
+    href="/docs/installation/fresh-installation#panel-configuration"
+  >
     Learn how to configure your Pyrodactyl instance
   </Card>
-  <Card title="Wings Setup" href="/docs/installation#wings-installation">
+  <Card
+    title="Wings Setup"
+    href="/docs/installation/fresh-installation#wings-installation"
+  >
     Configure Wings as your game server backend
+  </Card>
+  <Card title="Local Development" href="/docs/local-development">
+    Learn how to develop Pyrodactyl locally on your computer
   </Card>
 </Cards>
 
@@ -55,19 +69,9 @@ For existing Pterodactyl Docker users, you can quickly switch to Pyrodactyl by u
 +image: ghcr.io/pyrohost/pyrodactyl:main
 ```
 
-<Callout type="note">
+<Callout type="info">
   Windows is currently only supported for development purposes.
 </Callout>
-
-## Local Development
-
-See our development pages on how to get started:
-
-- [Local Dev on Windows (Vagrant)](/docs/local-development#local-dev-with-vagrant-on-windows)
-- [Local Dev on Linux (Vagrant)](/docs/local-development#local-dev-with-vagrant-on-linux)
-- [Local Dev on Linux (Nix)](/docs/local-development#local-dev-with-nix)
-
-<Callout>Nix is recommended if you can't get Vagrant working</Callout>
 
 ## License
 

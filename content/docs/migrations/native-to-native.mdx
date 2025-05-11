@@ -6,16 +6,18 @@ description: Guide for migrating from native Pterodactyl installation to native 
 ## Migrating from Pterodactyl (Native → Native)
 
 <Callout type="warn">
-  Before making any changes, back up your entire panel directory and database. Pyrodactyl modifies the database schema, and rolling back to Pterodactyl may result in data loss or instability.
+  Before making any changes, back up your entire panel directory and database.
+  Pyrodactyl modifies the database schema, and rolling back to Pterodactyl may
+  result in data loss or instability.
 </Callout>
 
 ### Prerequisites
 
-- Root or sudo access on your Linux server  
-- Latest [NodeJS LTS](https://nodejs.org/en) installed  
-- Composer installed globally  
-- MySQL database access and credentials  
-- Backup of `.env` and your current database  
+- Root or sudo access on your Linux server
+- Latest [NodeJS LTS](https://nodejs.org/en) installed
+- Composer installed globally
+- MySQL database access and credentials
+- Backup of `.env` and your current database
 
 ### Migration Steps
 
@@ -89,7 +91,9 @@ php artisan queue:restart
 Build the frontend assets:
 
 ```bash
-npm ci && npm run ship
+npm install -g corepack@latest
+corepack enable pnpm
+pnpm i --frozen-lockfile && pnpm run ship
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
