@@ -88,7 +88,23 @@ vagrant plugin update vagrant-vbguest
 
 ### Virtualization Notes
 
-On Windows, **avoid Hyper-V as your virtualization layer**. However, if you use Hyper-V anyways, use your Windows credentials if prompted for password.
+<Callout type="warn">
+  <strong>Windows Users:</strong> Avoid using Hyper-V with Vagrant. While supported, Hyper-V:
+  
+  - <strong>Conflicts</strong> with VirtualBox/VMWare (can't run simultaneously)
+  - Has <strong>limited Vagrant box compatibility</strong> (most boxes are VirtualBox-optimized)
+  - Lacks <strong>linked clones</strong> (slower provisioning)
+  - Requires <strong>manual network configuration</strong>
+
+  Use <strong>VirtualBox</strong> or <strong>VMWare</strong> instead for best results.
+</Callout>
+
+<Callout type="info">
+  If you must use Hyper-V:
+  - Disable other hypervisors first
+  - Use Windows credentials when prompted
+  - Expect reduced performance vs VirtualBox
+</Callout>
 
 ### VM Configuration
 
