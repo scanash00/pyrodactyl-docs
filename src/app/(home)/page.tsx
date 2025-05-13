@@ -4,6 +4,9 @@ import Image from "next/image";
 import { PyroButton } from "@/components/ui/PyroButton";
 import PyroPill from "@/components/ui/PyroPill";
 
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { BookOpenText, Flame, Accessibility, Rocket, CircleFadingArrowUp, Boxes, CodeXml } from "lucide-react";
+
 export const metadata: Metadata = {
 	metadataBase: new URL('https://pyrodactyl.dev'),
 	title: "Pyro - Pyrodactyl",
@@ -21,26 +24,32 @@ const features = [
 	{
 		title: "Built with Vite",
 		description: "Pyrodactyl is built with Vite, the fastest and most reliable build tool for JavaScript.",
+	    icon: <Flame size={23} />
 	},
 	{
 		title: "Accessibility at the core",
 		description: "Pyro is commited to making our software accessible to everyone. Pyrodactyl is no exception.",
+	    icon: <Accessibility size={23} />
 	},
 	{
 		title: "Optimized to pieces",
 		description: "Pyrodactyl builds in less than 150 milliseconds, and renders up to 70% faster than the original panel.",
+	    icon: <Rocket size={23} />
 	},
 	{
 		title: "Modern, scalable, and secure",
 		description: "The only outdated aspect of Pyrodactyl is the name. Everything else is absolutely cutting-edge.",
+	    icon: <CircleFadingArrowUp size={23} />
 	},
 	{
 		title: "Batteries included",
 		description: "It's everything you need, out-of-the-box. There's no need to install plugins or themes.",
+	    icon: <Boxes size={23} />
 	},
 	{
 		title: "Open source",
 		description: "Pyrodactyl is the first (and only) panel that a company has made its source publicly available.",
+	    icon: <CodeXml size={23} />
 	},
 ];
 
@@ -66,10 +75,10 @@ const Page = () => {
 							</p>
 							<div className="flex gap-2 flex-col">
 								<PyroButton variant="secondary" href="/docs" isArrow>
-									View Documentation
+									<BookOpenText size={16} /> View Documentation
 								</PyroButton>
 								<PyroButton variant="tertiary" href="https://github.com/pyrohost/pyrodactyl" isArrow external>
-									Star on GitHub
+									<GitHubLogoIcon /> Star on GitHub
 								</PyroButton>
 							</div>
 						</div>
@@ -109,7 +118,7 @@ const Page = () => {
 						{features.map((feature) => (
 							<div key={feature.title} className="col-span-1">
 								<div className="flex flex-col gap-1">
-									<span className="font-bold text-brand text-lg">{feature.title}</span>
+									<span className="font-bold text-brand text-lg flex">{feature.icon}&nbsp;{feature.title}</span>
 									<span className="text-gray-600 dark:text-gray-300">{feature.description}</span>
 								</div>
 							</div>
