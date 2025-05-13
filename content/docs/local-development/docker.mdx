@@ -36,13 +36,13 @@ This approach offers several advantages compared to [Vagrant](vagrant):
 
 1. Clone the Pyrodactyl panel repository
 
-1. Install dependencies:
+2. Install dependencies:
 
    ```bash
    pnpm i
    ```
 
-1. Build the project:
+3. Build the project:
 
    ```bash
    pnpm run ship
@@ -52,15 +52,15 @@ This approach offers several advantages compared to [Vagrant](vagrant):
    - Uploads sourcemaps to Sentry
    - Makes subsequent builds without code changes nearly instant
 
-1. Initialize the Docker image: `pnpm build:docker:dev`
+4. Initialize the Docker image: `pnpm build:docker:dev`
 
    - Installs PHP and system dependencies
    - Configures the image for Pyrodactyl services
    - This only needs to be done once unless PHP dependencies or the `Dockerfile` changes
 
-1. Copy the `docker-compose.develop.yml` file to `docker-compose.yml`, and adjust it carefully if needed
+5. Copy the `docker-compose.develop.yml` file to `docker-compose.yml`, and adjust it carefully if needed
 
-1. Move onto general usage
+6. Move onto general usage
 
 ## General usage
 
@@ -68,13 +68,13 @@ Once you've completed the initial setup:
 
 1. Run `pnpm compose` to startup the environment. If this is your first time running this, it'll take a second to pull and configure everything
 
-1. Run `pnpm dev:docker` to start a local development server
+2. Run `pnpm dev:docker` to start a local development server
 
    - For a production preview, run `pnpm run ship` and its build will be hosted by Docker
 
-1. Access Pyrodactyl from http://localhost:3000/, and login using the default credentials of `dev@pyro.host` and `password`
+3. Access Pyrodactyl from http://localhost:3000/, and login using the default credentials of `dev@pyro.host` and `password`
 
-1. Once finished, you can stop Docker using `pnpm compose:down`
+4. Once finished, you can stop Docker using `pnpm compose:down`
 
 ## Tips
 
@@ -102,13 +102,13 @@ To **irreversibly** reset your Docker data:
 
 1. Take the Docker compose down (`pnpm compose:down`)
 
-1. Enter the following command in your terminal (`sudo` is only required on Linux):
+2. Enter the following command in your terminal (`sudo` is only required on Linux):
 
-    ```bash
-    sudo rm -rf var vendor .env srv
-    ```
+```bash
+sudo rm -rf var vendor .env srv
+```
 
-1. Put the Docker compose back up again (`pnpm compose`) and server data should be recreated
+3. Put the Docker compose back up again (`pnpm compose`) and server data should be recreated
 
 ## Troubleshooting
 
@@ -119,8 +119,8 @@ Make sure you're not running into any [known limitations](#limitations).
 Firstly, try the below:
 
 1. Ensure your `docker-compose.yml` is correct. You should've copied the example `docker-compose.develop.yml` to this file
-1. [Reset your server data](#resetting-server-data) if your happy to do so
-1. Rebuild the Docker image (`pnpm build:docker:dev`)
+2. [Reset your server data](#resetting-server-data) if your happy to do so
+3. Rebuild the Docker image (`pnpm build:docker:dev`)
 
 If nothing above works, collect any errors from the following to aid in troubleshooting:
 
@@ -136,4 +136,4 @@ If you need to ask for help, ask in our [Pyrodactyl Discord server](https://disc
 Try killing any processes that could be using Pyrodactyl's ports, i.e. 8080, 2022, and 3000 by default, then run `pnpm compose` again. However, if that won't work, try the below:
 
 1. If the issue is while starting a server, adjust the allocations in your node settings to other ports
-1. If the issue is while starting the compose, carefully adjust the `docker-compose.yml`'s IP settings
+2. If the issue is while starting the compose, carefully adjust the `docker-compose.yml`'s IP settings

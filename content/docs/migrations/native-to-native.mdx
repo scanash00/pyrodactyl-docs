@@ -21,86 +21,86 @@ description: Guide for migrating from native Pterodactyl installation to native 
 
 ### Migration Steps
 
-1. Install a Node Version Manager
-    
-    ```bash
-    curl -o- https://fnm.vercel.app/install | bash
-    ```
+Let's begin by installing a Node version manager and setting up the correct Node version:
 
-1. Install Node 22
+```bash
+curl -o- https://fnm.vercel.app/install | bash
+```
 
-    ```bash
-    fnm install 22
-    ```
+Once that's done, restart your shell or follow the on-screen setup instructions, then install Node 22:
 
-1. Navigate to the directory where your current Pterodactyl panel is installed
+```bash
+fnm install 22
+```
 
-    ```bash
-    cd /var/www/pterodactyl
-    ```
+Now navigate to the directory where your current Pterodactyl panel is installed:
 
-1. Put the panel into maintenance mode
+```bash
+cd /var/www/pterodactyl
+```
 
-    ```bash
-    php artisan down
-    ```
+Put the panel into maintenance mode:
 
-1. Download and extract the latest Pyrodactyl release:
+```bash
+php artisan down
+```
 
-    ```bash
-    curl -L https://github.com/pyrohost/pyrodactyl/releases/latest/download/panel.tar.gz | tar -xzv
-    ```
+Download and extract the latest Pyrodactyl release:
 
-1. Set proper permissions:
+```bash
+curl -L https://github.com/pyrohost/pyrodactyl/releases/latest/download/panel.tar.gz | tar -xzv
+```
 
-    ```bash
-    chmod -R 755 storage/* bootstrap/cache
-    ```
+Set proper permissions:
 
-1. Install PHP dependencies:
+```bash
+chmod -R 755 storage/* bootstrap/cache
+```
 
-    ```bash
-    composer install --no-dev --optimize-autoloader
-    ```
+Install PHP dependencies:
 
-1. Clear cached views and configuration:
+```bash
+composer install --no-dev --optimize-autoloader
+```
 
-    ```bash
-    php artisan view:clear
-    php artisan config:clear
-    ```
+Clear cached views and configuration:
 
-1. Run the database migrations:
+```bash
+php artisan view:clear
+php artisan config:clear
+```
 
-    ```bash
-    php artisan migrate --seed --force
-    ```
+Run the database migrations:
 
-1. Set ownership to the web server user:
+```bash
+php artisan migrate --seed --force
+```
 
-    ```bash
-    chown -R www-data:www-data /var/www/pterodactyl/*
-    ```
+Set ownership to the web server user:
 
-1. Restart the queue worker:
+```bash
+chown -R www-data:www-data /var/www/pterodactyl/*
+```
 
-    ```bash
-    php artisan queue:restart
-    ```
+Restart the queue worker:
 
-1. Build the frontend assets:
+```bash
+php artisan queue:restart
+```
 
-    ```bash
-    npm install -g corepack@latest
-    corepack enable pnpm
-    pnpm i --frozen-lockfile && pnpm run ship
-    chmod -R 755 storage/* bootstrap/cache/
-   ```
+Build the frontend assets:
 
-1. Bring the panel back online:
+```bash
+npm install -g corepack@latest
+corepack enable pnpm
+pnpm i --frozen-lockfile && pnpm run ship
+chmod -R 755 storage/* bootstrap/cache/
+```
 
-    ```bash
-    php artisan up
-    ```
+Bring the panel back online:
+
+```bash
+php artisan up
+```
 
 🎉 **Boom! Your panel is now migrated to Pyrodactyl!**

@@ -13,10 +13,10 @@ This comprehensive guide walks you through setting up Pyrodactyl using Docker, f
   For Pyrodactyl-specific issues, please use [Pyrodactyl GitHub
   Discussions](https://github.com/pyrohost/pyrodactyl/discussions) or join our
   Discord community at
-  [discord.gg/FGWKZT5dxv](https://discord.gg/FGWKZT5dxv) for support.
+  [https://discord.gg/FGWKZT5dxv](https://discord.gg/FGWKZT5dxv) for support.
 </Callout>
 
-<Callout type="warn">
+<Callout type="note">
   Windows is currently only supported for development purposes.
 </Callout>
 
@@ -36,33 +36,33 @@ This comprehensive guide walks you through setting up Pyrodactyl using Docker, f
    - Modify all placeholder variables under `x-common`
    - Adjust exposed ports if needed (add 443 if you want to use HTTPS)
 
-1. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and move or upload your edited compose file into it. Rename the file to docker-compose.yml.
+2. Create a new folder (e.g. pyrodactyl-panel) on your server in a safe location, and move or upload your edited compose file into it. Rename the file to docker-compose.yml.
 
-1. In terminal, cd into the directory, and run the following command to start the panel:
+3. In terminal, cd into the directory, and run the following command to start the panel:
 
    ```bash
    docker compose up -d
    ```
 
-1. Run the command below, and go through its prompts to create an admin user:
+4. Run the command below, and go through its prompts to create an admin user:
 
    ```bash
    docker compose exec panel php artisan p:user:make
    ```
 
-1. Check that the panel is accessible using the IP address or domain of your server.
+5. Check that the panel is accessible using the IP address or domain of your server.
 
 ## Panel Configuration
 
 1. Access the panel via your server's IP/domain and login to your previously created user
-1. Navigate to admin panel (three dots menu → Admin)
-1. Navigate to Locations, make a new location. It can have any name
-1. Navigate to Nodes, create a new node
+2. Navigate to admin panel (three dots menu → Admin)
+3. Navigate to Locations, make a new location. It can have any name
+4. Navigate to Nodes, create a new node
 
    - FQDN is the domain or IP address (if you're not using HTTPS) of the server you're going to use as a backend
    - You should make sure the daemon ports are free on your backend server
 
-1. On the new node, go to the:
+5. On the new node, go to the:
    - Configuration tab: Copy the contents to /etc/pterodactyl/config.yml on your backend server
    - Allocation tab: Add some allocations to use for your servers. The IP should be 0.0.0.0. If you want to show a different IP in the UI (e.g. a subdomain), add an alias. You can input a range of ports like 25565-26000
 
@@ -77,19 +77,19 @@ In addition to the Pyrodactyl panel, you'll need Pterodactyl Wings as a backend 
    wget https://github.com/pterodactyl/wings/raw/develop/docker-compose.example.yml -O docker-compose.yml
    ```
 
-1. Run the following command to start Wings:
+2. Run the following command to start Wings:
 
    ```bash
    docker compose up -d
    ```
 
-1. Verify Wings status:
+3. Verify Wings status:
 
    ```bash
    docker ps | grep wings
    ```
 
-1. If applicable, allow wings in your firewall:
+4. If applicable, allow wings in your firewall:
    - If using `ufw`:
      ```bash
      ufw allow 2022
@@ -126,13 +126,13 @@ The goal is to not have your server's IP address on any of your known domains.
 
 If issues arise:
 
-1. Test with vanilla Pterodactyl by changing panel image to `ghcr.io/pterodactyl/panel:latest`
-1. Debug issues
-1. Switch back to Pyrodactyl image when resolved
+1. Test with vanilla Pterodactyl by changing panel image to ghcr.io/pterodactyl/panel:latest
+2. Debug issues
+3. Switch back to Pyrodactyl image when resolved
 
 ## Additional Resources
 
 - [Docker Documentation](https://docs.docker.com/)
 - [Pyrodactyl GitHub](https://github.com/pyrohost/pyrodactyl)
 - [Pterodactyl Documentation](https://pterodactyl.io/)
-- [Pyrodactyl Discord](https://discord.com/invite/FGWKZT5dxv?utm_campaign=pyrodactyl_support)
+- [Pyrodactyl Discord](https://discord.com/invite/RWjHy3Gsqs?utm_campaign=pyrodactyl_support)
