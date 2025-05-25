@@ -8,5 +8,8 @@ cmds = ["bun install"]
 cmds = ["bun run build"]
 
 [phases.start]
-cmds = ["bun run start"]
+cmd = "bun run start"
+
+[variables]
+NIXPACKS_IGNORE_DETECTION = "true"
 
