@@ -72,7 +72,7 @@ Once you've completed the initial setup:
 
    - For a production preview, run `pnpm run ship` and its build will be hosted by Docker
 
-1. Access Pyrodactyl from http://localhost/, and login using the default credentials of `dev@pyro.host` and `password`
+1. Access Pyrodactyl from http://localhost:3000/, and login using the default credentials of `dev@pyro.host` and `password`
 
 1. Once finished, you can stop Docker using `pnpm compose:down`
 
@@ -84,7 +84,7 @@ Set up Remote Caching via Turbo for faster builds. Cached results allow producti
 
 ### Database host
 
-This method supports creating a database host out of the box, which allows you to create databases on servers for testing. To do this, navigate to http://localhost/admin/databases, click **Create New**, and use the following settings:
+This method supports creating a database host out of the box, which allows you to create databases on servers for testing. To do this, navigate to http://localhost:3000/admin/databases, click **Create New**, and use the following settings:
 
 {/* prettier-ignore */}
 ```yaml
@@ -133,7 +133,7 @@ If you need to ask for help, ask in our [Pyrodactyl Discord server](https://disc
 
 ### Ports in use
 
-Try killing any processes that could be using Pyrodactyl's ports, i.e. 8080, 2022, and 80 by default, then run `pnpm compose` again. However, if that won't work, try the below:
+Try killing any processes that could be using Pyrodactyl's ports, i.e. 8080, 2022, and 3000 by default, then run `pnpm compose` again. However, if that won't work, try the below:
 
 1. If the issue is while starting a server, adjust the allocations in your node settings to other ports
 1. If the issue is while starting the compose, carefully adjust the `docker-compose.yml`'s IP settings
