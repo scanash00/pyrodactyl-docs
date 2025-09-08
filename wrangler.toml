@@ -5,3 +5,6 @@ account_id = "9b844ec394bf5fe2ae822c9735a61f52"
 [build]
 command = "pnpm build"
 destination = "out"
+
+[assets]
+directory = "./out"
