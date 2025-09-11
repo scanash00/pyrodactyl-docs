@@ -1,0 +1,39 @@
+---
+title: Domain Connection Failure
+description: Troubleshooting Curl Failures in Docker
+---
+
+
+<Callout title="Title" type="error">
+    If you need Subdomains to work while using `0.0.0.0` for IPs, a feature to allow setting a `true_ip` is in development.  
+</Callout>
+
+# Troubleshooting
+
+Most domain connection failures are caused by missing or misconfigured DNS servers for Docker. Fortunately, this is usually a quick fix.
+
+## Step 1: Check Docker DNS Configuration
+
+On your PyroDactyl host, open the Docker daemon configuration file located at:
+
+```
+
+/etc/docker/daemon.json
+
+
+
+If no DNS servers are specified, this is likely the cause of the issue. You can fix it by adding your preferred DNS servers. For example:
+
+```json
+{
+  "dns": ["8.8.8.8", "1.1.1.1"]
+}```
+
+After updating the file, restart your panel Docker container:
+
+```bash
+docker restart <panel-container-name>
+```
+
+Then, try your operation again. This should resolve most DNS-related connection failures.
+
