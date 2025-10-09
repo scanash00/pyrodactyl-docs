@@ -23,8 +23,8 @@ export default async function Page({ params }: PageParams) {
   const MDXContent = page.data.body;
 
   return (
-    <DocsPage 
-      toc={page.data.toc} 
+    <DocsPage
+      toc={page.data.toc}
       tableOfContent={{
         enabled: true,
         style: 'clerk'
