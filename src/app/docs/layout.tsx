@@ -6,16 +6,16 @@ import { GithubInfo } from 'fumadocs-ui/components/github-info';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <DocsLayout 
+    <DocsLayout
       {...baseOptions}
       tree={source.pageTree}
       links={[
         {
           type: 'custom',
           children: (
-            <GithubInfo 
-              owner="pyrohost" 
-              repo="pyrodactyl" 
+            <GithubInfo
+              owner="pyrohost"
+              repo="pyrodactyl"
               className="lg:-mx-2"
               token={process.env.GITHUB_TOKEN}
             />
