@@ -10,9 +10,11 @@ If your service or game server is failing to start because of **port binding err
 
 ---
 
-<Callout>
- If you need to get Subdomains working with your setup while using 0.0.0.0 for ips, an option is in the works to allow you to set a "true_ip"
- </Callout>
+
+<Callout title="Subdomain on 0.0.0.0" type='info'>
+  If you need Subdomains to work while using `0.0.0.0` for IPs, You can set an address alias and turn on `Domain by Allocation Alias` in your node config
+</Callout>
+
 
 ## 1. Check Your Bind Address
 
@@ -26,7 +28,7 @@ Using `0.0.0.0` tells the service to listen on *all available network interfaces
 
 There are cases where this may not be the case. but you won't have these problems if so.
 
-👉 Always make sure your allocation (bind IP) is set to:
+Always make sure your allocation (bind IP) is set to:
 
 ```
 0.0.0.0

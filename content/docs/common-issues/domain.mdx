@@ -4,7 +4,7 @@ description: Troubleshooting Curl Failures in Docker
 ---
 
 
-<Callout title="Title" type="error">
+<Callout title="Subdomain on 0.0.0.0" type='info'>
     If you need Subdomains to work while using `0.0.0.0` for IPs, You can set an address alias and turn on `Domain by Allocation Alias` in your node config
 </Callout>
 
@@ -12,7 +12,7 @@ description: Troubleshooting Curl Failures in Docker
 
 Most domain connection failures are caused by missing or misconfigured DNS servers for Docker. Fortunately, this is usually a quick fix.
 
-## Step 1: Check Docker DNS Configuration
+## Check Docker DNS Configuration
 
 On your Pyrodactyl host, open the Docker daemon configuration file located at:
 
