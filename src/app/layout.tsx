@@ -8,6 +8,12 @@ const inter = Inter({
   subsets: ['latin'],
 });
 
+export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.svg',
+  },
+};
+
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
