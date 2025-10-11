@@ -75,7 +75,7 @@ const Page = () => {
 								It&apos;s the world&apos;s best Pterodactyl panel. Unmatched performance and features.
 							</p>
 							<div className="flex gap-2 flex-col">
-								<PyroButton variant="secondary" href="/docs" isArrow>
+								<PyroButton variant="secondary" href="/docs/pyrodactyl" isArrow>
 									<BookOpenText size={16} /> View Documentation
 								</PyroButton>
 								<PyroButton variant="secondary" href="https://github.com/pyrohost/pyrodactyl" isArrow external>
